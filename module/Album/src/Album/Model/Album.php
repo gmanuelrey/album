@@ -1,5 +1,4 @@
 <?php
-
 namespace Album\Model;
 
 use Zend\InputFilter\Factory as InputFactory;     // <-- Add this import
@@ -7,18 +6,21 @@ use Zend\InputFilter\InputFilter;                 // <-- Add this import
 use Zend\InputFilter\InputFilterAwareInterface;   // <-- Add this import
 use Zend\InputFilter\InputFilterInterface;        // <-- Add this import
 
-class Album {
-
+class Album implements InputFilterAwareInterface
+{
     public $id;
     public $artist;
     public $title;
+    protected $inputFilter;                       // <-- Add this variable
 
-    public function exchangeArray($data) {
-        $this->id = (isset($data['id'])) ? $data['id'] : null;
+    public function exchangeArray($data)
+    {
+        $this->id     = (isset($data['id']))     ? $data['id']     : null;
         $this->artist = (isset($data['artist'])) ? $data['artist'] : null;
-        $this->title = (isset($data['title'])) ? $data['title'] : null;
+        $this->title  = (isset($data['title']))  ? $data['title']  : null;
     }
-     // Add content to this method:
+
+    // Add content to this method:
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
